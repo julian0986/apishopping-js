@@ -8,7 +8,6 @@ const routeConfig = require('./api/routes');
 const app = express();
 const port = 3000;
 
-
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/shopping-js');
 }

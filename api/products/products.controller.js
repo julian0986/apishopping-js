@@ -1,10 +1,8 @@
 const Product = require('./product.model');
 
-const index = (req, res) => {
-  /* implemets show by id in mongo or ahother db */
-  console.log('ss');
-  return res.status(200).json({ message: 'hello from products' });
-};
+const index = (req, res) => Product.find().exec()
+  .then((products) => res.status(200).json(products))
+  .catch((error) => res.status(500).json({ error }));
 
 const create = (req, res) => {
   console.log(req.body);
@@ -16,15 +14,29 @@ const create = (req, res) => {
   return res.status(400).json({ message: 'missing product' });
 };
 
-const showById = (req, res) => {
-  /* implemets find by id in mongo or ahother db */
-  console.log('ss');
-  return res.status(201).json({ id: req.params.id, name: 'laptop' });
-};
+const showById = (req, res) => Product.find({ _id: req.params.id }).exec()
+  .then((product) => res.status(200).json(product))
+  .catch((error) => res.status(500).json({ error }));
+
+const deleteProduct = (req, res) => Product.deleteOne({ _id: req.params.id }).exec()
+  .then(() => res.status(201).json({ message: 'producto borrado con exito' }))
+  .catch((error) => res.status(500).json({ message: 'no se pudo borrar', error }));
+
+const updateById = (req, res) => Product
+  .updateOne(
+    { _id: req.params.id },
+    { name: req.body.name },
+  )
+  .exec()
+  .then((product) => res.status(200).json({ message: 'producto actualizado con exito', product}))
+  .catch((error) => res.status(500).json({ message: 'no se pudo borrar', error }));
 
 // export default index;
+
 module.exports = {
   index,
   create,
   showById,
+  deleteProduct,
+  updateById,
 };
