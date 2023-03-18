@@ -28,7 +28,7 @@ const updateById = (req, res) => Product
     { name: req.body.name },
   )
   .exec()
-  .then((product) => res.status(200).json({ message: 'producto actualizado con exito', product}))
+  .then((product) => res.status(200).json({ message: 'producto actualizado con exito', product }))
   .catch((error) => res.status(500).json({ message: 'no se pudo borrar', error }));
 
 // export default index;
