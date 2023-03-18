@@ -25,7 +25,7 @@ const deleteProduct = (req, res) => Product.deleteOne({ _id: req.params.id }).ex
 const updateById = (req, res) => Product
   .updateOne(
     { _id: req.params.id },
-    { name: req.body.name },
+    { [req.body.field]: req.body.value },
   )
   .exec()
   .then((product) => res.status(200).json({ message: 'producto actualizado con exito', product }))
