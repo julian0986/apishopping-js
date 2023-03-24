@@ -18,7 +18,6 @@ const index = (req, res) => Product.find().exec()
   .catch(handleError(res, 500));
 
 const create = (req, res) => {
-  console.log(req.body);
   if (req.body) {
     return Product.create(req.body)
       .then(respondWithResult(res, 200))
