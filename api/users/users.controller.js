@@ -30,8 +30,23 @@ const showById = (req, res) => User.find({ _id: req.params.id }).exec()
   .then(respondWithResultUser(res, 200))
   .catch(handleErrorUser(res, 500));
 
+const deleteUser = (req, res) => User.deleteOne({ _id: req.params.id }).exec()
+  .then(respondWithResultUser(res, 200))
+  .catch(handleErrorUser(res, 500));
+
+const updateById = (req, res) => User
+  .updateOne(
+    { _id: req.params.id },
+    { [req.body.field]: req.body.value },
+  )
+  .exec()
+  .then(respondWithResultUser(res, 200))
+  .catch(handleErrorUser(res, 500));
+
 module.exports = {
   index,
   createUser,
   showById,
+  deleteUser,
+  updateById,
 };
